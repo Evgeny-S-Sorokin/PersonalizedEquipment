@@ -1,21 +1,21 @@
 // Script File
 
-class Alastor_PlayerCfg
+class Alastor_SpawnCfg
 {
-	
+		
 	//----------------------------------------------------------------------
 	//-file info------------------------------------
 	static const string mod_dir	 = "$profile:PersonalizedEquipment\\";
-	static const string file_dir = mod_dir + "PlayerCfg\\";
+	static const string file_dir = mod_dir + "SpawnCfg\\";
 
 	//-Player parametrs----------------------
-	private string _spawn_type 		= "Default";
-	private string _loadout_type 	= "Default";
-	private string _face			= "SurvivorM_Peter";
+	private float _x = 10875.80;
+	private float _y = 6;
+	private float _z = 2518.90;
 	
 	//----------------------------------------------------------------------
 	
-	void Alastor_PlayerCfg( PlayerIdentity identity )
+	void Alastor_SpawnCfg( string spawn_type )
 	{
 		if ( GetGame().IsClient() )
 		{
@@ -23,7 +23,7 @@ class Alastor_PlayerCfg
 		}
 		else {}
 		
-		string func_name = "Alastor_PlayerCfg";
+		string func_name = "Alastor_SpawnCfg";
 		string file_name;
 		string file_path;
 		
@@ -43,17 +43,16 @@ class Alastor_PlayerCfg
 		}
 		else {}
 		
-		string Steam64_ID = identity.GetPlainId();
-		if ( ( Steam64_ID != "" ) )
-		{
-			file_name = Steam64_ID + ".json";
-			file_path = file_dir + file_name;	
-		}
+		if ( ( spawn_type != "" ) )
+		{ }
 		else 
 		{
-			g_log.error( "Failed to get player's Steam64_ID!", func_name );
-			return;
+			g_log.error( "Failed to get player's spawn type!", func_name );
+			spawn_type = "Default";
 		}
+			
+		file_name = spawn_type + ".json";
+		file_path = file_dir + file_name;
 		
 		g_log.info( "Reading config [" + file_path + "]", func_name );
 		if ( !FileExist( file_path ) )
@@ -67,17 +66,17 @@ class Alastor_PlayerCfg
 	}
 	
 	// Getters
-	string get_spawn_type()
+	int get_x()
 	{
-		return _spawn_type;
+		return _x;
 	}
-	string get_loadout_type()
+	int get_y()
 	{
-		return _loadout_type;
+		return _y;
 	}
-	string get_face()
+	int get_z()
 	{
-		return _face;
+		return _z;
 	}
 	
 	//----------------------------------------------------------------------
@@ -90,7 +89,7 @@ class Alastor_PlayerCfg
 		if ( FileExist( file_path ) )
 		{
 			g_log.info( "Loading config from [" + file_path + "]", func_name );
-			JsonFileLoader< Alastor_PlayerCfg >.JsonLoadFile( file_path, this );
+			JsonFileLoader< Alastor_SpawnCfg >.JsonLoadFile( file_path, this );
 			return true;
 		}
 		else 
@@ -102,9 +101,9 @@ class Alastor_PlayerCfg
 	//-save cfg to file---------------------------
 	protected void save( string file_path )
 	{
-		JsonFileLoader< Alastor_PlayerCfg >.JsonSaveFile( file_path, this );
+		JsonFileLoader< Alastor_SpawnCfg >.JsonSaveFile( file_path, this );
 	}
 	
 	//----------------------------------------------------------------------
-	
+
 }
