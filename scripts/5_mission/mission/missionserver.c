@@ -53,12 +53,8 @@ modded class MissionServer
 		create_items_on_slot( player, cfg.slot_shoulder_1, cfg.slot_shoulder_1_attachments, cfg.slot_shoulder_1_cargo );		
 		create_items_on_slot( player, cfg.slot_shoulder_2, cfg.slot_shoulder_2_attachments, cfg.slot_shoulder_2_cargo );
 		
-		// Hands		
-		auto new_item = player.GetHumanInventory().CreateInHands( cfg.slot_hands );
-		g_log.trace( "Item: [" + new_item.GetType() + "] created", func_name );
-		fill_item( new_item, cfg.slot_hands_attachments );
-		fill_item( new_item, cfg.slot_hands_cargo );
-		
+		// Hands
+		create_items_in_hands( player, cfg.slot_hands, cfg.slot_hands_attachments, cfg.slot_hands_cargo );		
 		create_items_on_slot( player, cfg.slot_gloves, null, null );	
 		create_items_on_slot( player, cfg.slot_armband, cfg.slot_armband_attachments, cfg.slot_armband_cargo );
 		
