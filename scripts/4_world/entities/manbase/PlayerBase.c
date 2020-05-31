@@ -5,6 +5,15 @@ modded class PlayerBase
 	
 	//-----------------------------------------------------------------------------------------
 	
+	override void EEKilled( Object killer )
+	{
+		super.EEKilled( killer );
+		
+		EntitySpawner.push_back_corpse( this );
+	}
+	
+	//-----------------------------------------------------------------------------------------
+	
 	void set_spawn_type( string spawn_type )
 	{
 		_spawn_type = spawn_type;
